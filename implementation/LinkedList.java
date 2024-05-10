@@ -219,20 +219,36 @@ public class LinkedList{
         }
     }
 
+    int reSearchHelper(int data,Node head,int pos){
+        if(pos>size){
+            return -1;
+        }
+        else if(head.data==data){
+            return pos;
+        }
+        else{
+            return reSearchHelper(data, head.next, pos+1);
+        }
+        
+    }
+    // recursive search in linked list -> O(N) [ in worst case ] 
+    int searchRecursive(int data){
+        return reSearchHelper(data, head,1);
+    }
     // search in linked list -> O(N) [ in worst case ] 
     int search(int data){
         int pos=1;
         Node currNode=head;
-        while(size>0){
+        int currSize=size;
+        while(currSize>0){
             if(currNode.data==data){
-                System.out.println(pos);
                 return pos;
             }
             else{
                 currNode=currNode.next;
                 pos++;
             }
-            size--;
+            currSize--;
         }
         return -1;
     } 
@@ -262,6 +278,9 @@ public class LinkedList{
         ll.print();
         ll.updatePos(20,3);
         ll.print();
-        System.out.println(ll.search(2)); // -1 if data not found
+        System.out.println(ll.search(20)); // -1 if data not found
+        System.out.println(ll.searchRecursive(1)); // -1 if data not found
     }
 }
+
+// position of liniked list start from 1 to n ;
