@@ -252,11 +252,34 @@ public class LinkedList{
         }
         return -1;
     } 
+
+    
+    // reverse linked list -> O(N)
+    void reverseLL(){
+        // step1: initialize currNode as head node
+        Node currNode=head;
+        // step2: initialize next node 
+        Node  nextNode;
+        // step3: initialize prev node to null
+        Node prevNode=null;
+        while(currNode!=null){
+            // step6 : move currNode one step forwar
+            nextNode=currNode.next;
+            // step7: upadte 
+            currNode.next=prevNode;
+            // step7 : update prev node to current node
+            prevNode=currNode;
+            currNode=nextNode;
+            // tempSize--;
+        }
+        head=prevNode;
+    }  
+
     // print linked list -> O(N)  
     void print(){
         Node temp=head;
         for (int i = 0; i < size; i++) {
-            System.out.print(temp.data+" <- ");
+            System.out.print(temp.data+" -> ");
             temp=temp.next;
         }
         System.out.println("null");
@@ -277,6 +300,8 @@ public class LinkedList{
         ll.deletePos(3);
         ll.print();
         ll.updatePos(20,3);
+        ll.print();
+        ll.reverseLL();
         ll.print();
         System.out.println(ll.search(20)); // -1 if data not found
         System.out.println(ll.searchRecursive(1)); // -1 if data not found
