@@ -219,7 +219,24 @@ public class LinkedList{
         }
     }
 
-    // print linked list -> O(N) where 
+    // search in linked list -> O(N) [ in worst case ] 
+    int search(int data){
+        int pos=1;
+        Node currNode=head;
+        while(size>0){
+            if(currNode.data==data){
+                System.out.println(pos);
+                return pos;
+            }
+            else{
+                currNode=currNode.next;
+                pos++;
+            }
+            size--;
+        }
+        return -1;
+    } 
+    // print linked list -> O(N)  
     void print(){
         Node temp=head;
         for (int i = 0; i < size; i++) {
@@ -245,5 +262,6 @@ public class LinkedList{
         ll.print();
         ll.updatePos(20,3);
         ll.print();
+        System.out.println(ll.search(2)); // -1 if data not found
     }
 }
