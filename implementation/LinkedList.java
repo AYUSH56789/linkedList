@@ -219,6 +219,7 @@ public class LinkedList{
         }
     }
 
+    // helper function for recursive search
     int reSearchHelper(int data,Node head,int pos){
         if(pos>size){
             return -1;
@@ -283,28 +284,75 @@ public class LinkedList{
             temp=temp.next;
         }
         System.out.println("null");
-    }   
+    } 
+    
+    // find mid-helper 
+    Node findMid(Node head){
+        Node slow=head;
+        Node fast=head;
+        while (fast!=null && fast.next!=null) {
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+
+    // check palidrome
+boolean isPalindrome(){
+    // step0: when
+    if(head==null || head.next==null){
+        return true;
+    }
+    // step1: find mid
+    Node mid=findMid(head);
+    // step2: reverse from head to mid
+    Node prev=null;
+    Node curr=mid;
+    Node next;
+    while(curr!=null){
+        next=curr.next;
+        curr.next=prev;
+        prev=curr;
+        curr=next;
+    }
+    // Update the head of the second half to the new head
+    mid = prev;
+    
+    // step3: check both parts are same or not
+    Node left=head;
+    Node right=mid;
+    while(right!=null){
+        if(left.data!=right.data){
+            return false;
+        }
+        left = left.next;
+        right = right.next;
+    }
+    return true;
+} 
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
-        ll.addFirst(2);
-        ll.addFirst(3);
+        // ll.addFirst(4);
         ll.addFirst(1);
-        ll.addFirst(7);
-        ll.addLast(0);
-        ll.addPos(10,1);
+        ll.addFirst(2);
+        ll.addFirst(1);
+        // ll.addLast(0);
+        // ll.addPos(10,1);
         ll.print();
-        ll.deleteFirst();
-        ll.print();
-        ll.deleteLast();
-        ll.print();
-        ll.deletePos(3);
-        ll.print();
-        ll.updatePos(20,3);
-        ll.print();
-        ll.reverseLL();
-        ll.print();
-        System.out.println(ll.search(20)); // -1 if data not found
-        System.out.println(ll.searchRecursive(1)); // -1 if data not found
+        // ll.deleteFirst();
+        // ll.print();
+        // ll.deleteLast();
+        // ll.print();
+        // ll.deletePos(3);
+        // ll.print();
+        // ll.updatePos(10,3);
+        // ll.print();
+        // ll.reverseLL();
+        // ll.print();
+        // System.out.println(ll.search(20)); // -1 if data not found
+        // System.out.println(ll.searchRecursive(1)); // -1 if data not found
+        System.out.println(ll.isPalindrome());
     }
 }
 
