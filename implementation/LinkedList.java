@@ -343,6 +343,34 @@ public class LinkedList {
         return false;
     }
 
+    public static void removeCycle(){
+        // step1: initialize slow and fast with head node
+        Node slow=head;
+        Node fast=head;
+        // step2: move slow and fast until fast!=null && fast.next!=null
+        while(fast!=null && fast.next!=null){
+            // step3:move slow by one
+            slow=slow.next;
+            // step4:move fast by two
+            fast=fast.next.next;
+            // step5:check is fast and slow is point at same node oe not
+            if(slow==fast){ 
+                System.out.println("cycle found");
+                // step6: set slow to head
+                slow=head;
+                // step7: move slow and fast until fast.next!=slow
+                while(fast.next!=slow.next){
+                    slow=slow.next;
+                    fast=fast.next;
+                }
+                // step8:fast.next set to null
+                fast.next=null;
+                System.out.println("cycle remove");
+            }
+        }
+        
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         // ll.addFirst(4);
@@ -369,8 +397,10 @@ public class LinkedList {
         head.next=new Node(2);
         head.next.next=new Node(3);
         head.next.next.next=new Node(4);
-        // head.next.next.next.next=head;
+        head.next.next.next.next=head;
 
+        System.out.println(hasCycle());
+        removeCycle();
         System.out.println(hasCycle());
         // System.out.println(ll.hasCycle());
     }
